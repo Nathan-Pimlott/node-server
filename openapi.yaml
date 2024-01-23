@@ -1,0 +1,41 @@
+openapi: 3.0.0
+info:
+  title: Node Server
+  description: Basic node server
+  version: 0.0.1
+
+servers:
+  - url: http://localhost:3000
+    description: Local development server
+
+components:
+  parameters:
+    authToken:
+      in: header
+      name: token
+      required: true
+      schema:
+        type: string
+      description: Authentication token
+  schemas:
+    TwoNumbers:
+      type: object
+      properties:
+        num1:
+          type: integer
+        num2:
+          type: integer
+
+paths:
+  /:
+    post:
+      summary: Check if 2 numbers are the same
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TwoNumbers"
+      responses:
+        "200":
+          description: Valid data was passed in. Response contains if numbers match
